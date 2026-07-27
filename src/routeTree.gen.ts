@@ -10,33 +10,132 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
+import { Route as CarsRouteRouteImport } from './routes/cars/route'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCarsRouteRouteImport } from './routes/admin/cars/route'
+import { Route as CarsIndexRouteImport } from './routes/cars/index'
+import { Route as CarsCarIdRouteImport } from './routes/cars/$carId'
+import { Route as AdminCarsNewRouteImport } from './routes/admin/cars/new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarsRouteRoute = CarsRouteRouteImport.update({
+  id: '/cars',
+  path: '/cars',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminCarsRouteRoute = AdminCarsRouteRouteImport.update({
+  id: '/cars',
+  path: '/cars',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const CarsIndexRoute = CarsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CarsRouteRoute,
+} as any)
+const CarsCarIdRoute = CarsCarIdRouteImport.update({
+  id: '/$carId',
+  path: '/$carId',
+  getParentRoute: () => CarsRouteRoute,
+} as any)
+const AdminCarsNewRoute = AdminCarsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminCarsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/cars': typeof CarsRouteRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
+  '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/cars/$carId': typeof CarsCarIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/cars/': typeof CarsIndexRoute
+  '/admin/cars/new': typeof AdminCarsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin-login': typeof AdminLoginRoute
+  '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/cars/$carId': typeof CarsCarIdRoute
+  '/admin': typeof AdminIndexRoute
+  '/cars': typeof CarsIndexRoute
+  '/admin/cars/new': typeof AdminCarsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/cars': typeof CarsRouteRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
+  '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/cars/$carId': typeof CarsCarIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/cars/': typeof CarsIndexRoute
+  '/admin/cars/new': typeof AdminCarsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/cars'
+    | '/admin-login'
+    | '/admin/cars'
+    | '/cars/$carId'
+    | '/admin/'
+    | '/cars/'
+    | '/admin/cars/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin-login'
+    | '/admin/cars'
+    | '/cars/$carId'
+    | '/admin'
+    | '/cars'
+    | '/admin/cars/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/cars'
+    | '/admin-login'
+    | '/admin/cars'
+    | '/cars/$carId'
+    | '/admin/'
+    | '/cars/'
+    | '/admin/cars/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  CarsRouteRoute: typeof CarsRouteRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +147,121 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cars': {
+      id: '/cars'
+      path: '/cars'
+      fullPath: '/cars'
+      preLoaderRoute: typeof CarsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/cars': {
+      id: '/admin/cars'
+      path: '/cars'
+      fullPath: '/admin/cars'
+      preLoaderRoute: typeof AdminCarsRouteRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/cars/': {
+      id: '/cars/'
+      path: '/'
+      fullPath: '/cars/'
+      preLoaderRoute: typeof CarsIndexRouteImport
+      parentRoute: typeof CarsRouteRoute
+    }
+    '/cars/$carId': {
+      id: '/cars/$carId'
+      path: '/$carId'
+      fullPath: '/cars/$carId'
+      preLoaderRoute: typeof CarsCarIdRouteImport
+      parentRoute: typeof CarsRouteRoute
+    }
+    '/admin/cars/new': {
+      id: '/admin/cars/new'
+      path: '/new'
+      fullPath: '/admin/cars/new'
+      preLoaderRoute: typeof AdminCarsNewRouteImport
+      parentRoute: typeof AdminCarsRouteRoute
+    }
   }
 }
 
+interface AdminCarsRouteRouteChildren {
+  AdminCarsNewRoute: typeof AdminCarsNewRoute
+}
+
+const AdminCarsRouteRouteChildren: AdminCarsRouteRouteChildren = {
+  AdminCarsNewRoute: AdminCarsNewRoute,
+}
+
+const AdminCarsRouteRouteWithChildren = AdminCarsRouteRoute._addFileChildren(
+  AdminCarsRouteRouteChildren,
+)
+
+interface AdminRouteRouteChildren {
+  AdminCarsRouteRoute: typeof AdminCarsRouteRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminCarsRouteRoute: AdminCarsRouteRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
+interface CarsRouteRouteChildren {
+  CarsCarIdRoute: typeof CarsCarIdRoute
+  CarsIndexRoute: typeof CarsIndexRoute
+}
+
+const CarsRouteRouteChildren: CarsRouteRouteChildren = {
+  CarsCarIdRoute: CarsCarIdRoute,
+  CarsIndexRoute: CarsIndexRoute,
+}
+
+const CarsRouteRouteWithChildren = CarsRouteRoute._addFileChildren(
+  CarsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  CarsRouteRoute: CarsRouteRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
