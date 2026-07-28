@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { to: "/cars" as const, label: "السيارات" },
   { to: "/dealers" as const, label: "الوكلاء" },
   { to: "/auctions" as const, label: "المزادات" },
-  { to: "/inspect" as const, label: "الفحص الفني" },
+  { to: "/inspections" as const, label: "الفحص الفني" },
   { to: "/finance" as const, label: "التمويل والتأمين" },
 ];
 

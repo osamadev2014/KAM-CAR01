@@ -18,10 +18,23 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminCarsRouteRouteImport } from './routes/admin/cars/route'
+import { Route as AuctionsIndexRouteImport } from './routes/auctions/index'
+import { Route as AuctionsAuctionIdRouteImport } from './routes/auctions/$auctionId'
 import { Route as BusinessSelectRouteImport } from './routes/business/select'
 import { Route as CarsIndexRouteImport } from './routes/cars/index'
 import { Route as CarsCarIdRouteImport } from './routes/cars/$carId'
+import { Route as DealersIndexRouteImport } from './routes/dealers/index'
+import { Route as DealersDealerIdRouteImport } from './routes/dealers/$dealerId'
+import { Route as FinanceIndexRouteImport } from './routes/finance/index'
+import { Route as InspectionsIndexRouteImport } from './routes/inspections/index'
+import { Route as InspectionsInspectionIdRouteImport } from './routes/inspections/$inspectionId'
+import { Route as AdminAdsIndexRouteImport } from './routes/admin/ads/index'
+import { Route as AdminAuctionsIndexRouteImport } from './routes/admin/auctions/index'
 import { Route as AdminCarsNewRouteImport } from './routes/admin/cars/new'
+import { Route as AdminDealersIndexRouteImport } from './routes/admin/dealers/index'
+import { Route as AdminFinanceIndexRouteImport } from './routes/admin/finance/index'
+import { Route as AdminInspectionsIndexRouteImport } from './routes/admin/inspections/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -68,6 +81,16 @@ const AdminCarsRouteRoute = AdminCarsRouteRouteImport.update({
   path: '/cars',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AuctionsIndexRoute = AuctionsIndexRouteImport.update({
+  id: '/auctions/',
+  path: '/auctions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuctionsAuctionIdRoute = AuctionsAuctionIdRouteImport.update({
+  id: '/auctions/$auctionId',
+  path: '/auctions/$auctionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BusinessSelectRoute = BusinessSelectRouteImport.update({
   id: '/business/select',
   path: '/business/select',
@@ -83,10 +106,65 @@ const CarsCarIdRoute = CarsCarIdRouteImport.update({
   path: '/$carId',
   getParentRoute: () => CarsRouteRoute,
 } as any)
+const DealersIndexRoute = DealersIndexRouteImport.update({
+  id: '/dealers/',
+  path: '/dealers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DealersDealerIdRoute = DealersDealerIdRouteImport.update({
+  id: '/dealers/$dealerId',
+  path: '/dealers/$dealerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceIndexRoute = FinanceIndexRouteImport.update({
+  id: '/finance/',
+  path: '/finance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InspectionsIndexRoute = InspectionsIndexRouteImport.update({
+  id: '/inspections/',
+  path: '/inspections/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InspectionsInspectionIdRoute = InspectionsInspectionIdRouteImport.update({
+  id: '/inspections/$inspectionId',
+  path: '/inspections/$inspectionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAdsIndexRoute = AdminAdsIndexRouteImport.update({
+  id: '/ads/',
+  path: '/ads/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAuctionsIndexRoute = AdminAuctionsIndexRouteImport.update({
+  id: '/auctions/',
+  path: '/auctions/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminCarsNewRoute = AdminCarsNewRouteImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => AdminCarsRouteRoute,
+} as any)
+const AdminDealersIndexRoute = AdminDealersIndexRouteImport.update({
+  id: '/dealers/',
+  path: '/dealers/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminFinanceIndexRoute = AdminFinanceIndexRouteImport.update({
+  id: '/finance/',
+  path: '/finance/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminInspectionsIndexRoute = AdminInspectionsIndexRouteImport.update({
+  id: '/inspections/',
+  path: '/inspections/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -98,11 +176,24 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/auctions/$auctionId': typeof AuctionsAuctionIdRoute
   '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
+  '/dealers/$dealerId': typeof DealersDealerIdRoute
+  '/inspections/$inspectionId': typeof InspectionsInspectionIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/auctions/': typeof AuctionsIndexRoute
   '/cars/': typeof CarsIndexRoute
+  '/dealers/': typeof DealersIndexRoute
+  '/finance/': typeof FinanceIndexRoute
+  '/inspections/': typeof InspectionsIndexRoute
   '/admin/cars/new': typeof AdminCarsNewRoute
+  '/admin/ads/': typeof AdminAdsIndexRoute
+  '/admin/auctions/': typeof AdminAuctionsIndexRoute
+  '/admin/dealers/': typeof AdminDealersIndexRoute
+  '/admin/finance/': typeof AdminFinanceIndexRoute
+  '/admin/inspections/': typeof AdminInspectionsIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -111,11 +202,24 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/auctions/$auctionId': typeof AuctionsAuctionIdRoute
   '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
+  '/dealers/$dealerId': typeof DealersDealerIdRoute
+  '/inspections/$inspectionId': typeof InspectionsInspectionIdRoute
   '/admin': typeof AdminIndexRoute
+  '/auctions': typeof AuctionsIndexRoute
   '/cars': typeof CarsIndexRoute
+  '/dealers': typeof DealersIndexRoute
+  '/finance': typeof FinanceIndexRoute
+  '/inspections': typeof InspectionsIndexRoute
   '/admin/cars/new': typeof AdminCarsNewRoute
+  '/admin/ads': typeof AdminAdsIndexRoute
+  '/admin/auctions': typeof AdminAuctionsIndexRoute
+  '/admin/dealers': typeof AdminDealersIndexRoute
+  '/admin/finance': typeof AdminFinanceIndexRoute
+  '/admin/inspections': typeof AdminInspectionsIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -127,11 +231,24 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/auctions/$auctionId': typeof AuctionsAuctionIdRoute
   '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
+  '/dealers/$dealerId': typeof DealersDealerIdRoute
+  '/inspections/$inspectionId': typeof InspectionsInspectionIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/auctions/': typeof AuctionsIndexRoute
   '/cars/': typeof CarsIndexRoute
+  '/dealers/': typeof DealersIndexRoute
+  '/finance/': typeof FinanceIndexRoute
+  '/inspections/': typeof InspectionsIndexRoute
   '/admin/cars/new': typeof AdminCarsNewRoute
+  '/admin/ads/': typeof AdminAdsIndexRoute
+  '/admin/auctions/': typeof AdminAuctionsIndexRoute
+  '/admin/dealers/': typeof AdminDealersIndexRoute
+  '/admin/finance/': typeof AdminFinanceIndexRoute
+  '/admin/inspections/': typeof AdminInspectionsIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -144,11 +261,24 @@ export interface FileRouteTypes {
     | '/register'
     | '/verify'
     | '/admin/cars'
+    | '/auctions/$auctionId'
     | '/business/select'
     | '/cars/$carId'
+    | '/dealers/$dealerId'
+    | '/inspections/$inspectionId'
     | '/admin/'
+    | '/auctions/'
     | '/cars/'
+    | '/dealers/'
+    | '/finance/'
+    | '/inspections/'
     | '/admin/cars/new'
+    | '/admin/ads/'
+    | '/admin/auctions/'
+    | '/admin/dealers/'
+    | '/admin/finance/'
+    | '/admin/inspections/'
+    | '/admin/users/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -157,11 +287,24 @@ export interface FileRouteTypes {
     | '/register'
     | '/verify'
     | '/admin/cars'
+    | '/auctions/$auctionId'
     | '/business/select'
     | '/cars/$carId'
+    | '/dealers/$dealerId'
+    | '/inspections/$inspectionId'
     | '/admin'
+    | '/auctions'
     | '/cars'
+    | '/dealers'
+    | '/finance'
+    | '/inspections'
     | '/admin/cars/new'
+    | '/admin/ads'
+    | '/admin/auctions'
+    | '/admin/dealers'
+    | '/admin/finance'
+    | '/admin/inspections'
+    | '/admin/users'
   id:
     | '__root__'
     | '/'
@@ -172,11 +315,24 @@ export interface FileRouteTypes {
     | '/register'
     | '/verify'
     | '/admin/cars'
+    | '/auctions/$auctionId'
     | '/business/select'
     | '/cars/$carId'
+    | '/dealers/$dealerId'
+    | '/inspections/$inspectionId'
     | '/admin/'
+    | '/auctions/'
     | '/cars/'
+    | '/dealers/'
+    | '/finance/'
+    | '/inspections/'
     | '/admin/cars/new'
+    | '/admin/ads/'
+    | '/admin/auctions/'
+    | '/admin/dealers/'
+    | '/admin/finance/'
+    | '/admin/inspections/'
+    | '/admin/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -187,7 +343,14 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   VerifyRoute: typeof VerifyRoute
+  AuctionsAuctionIdRoute: typeof AuctionsAuctionIdRoute
   BusinessSelectRoute: typeof BusinessSelectRoute
+  DealersDealerIdRoute: typeof DealersDealerIdRoute
+  InspectionsInspectionIdRoute: typeof InspectionsInspectionIdRoute
+  AuctionsIndexRoute: typeof AuctionsIndexRoute
+  DealersIndexRoute: typeof DealersIndexRoute
+  FinanceIndexRoute: typeof FinanceIndexRoute
+  InspectionsIndexRoute: typeof InspectionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -255,6 +418,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCarsRouteRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/auctions/': {
+      id: '/auctions/'
+      path: '/auctions'
+      fullPath: '/auctions/'
+      preLoaderRoute: typeof AuctionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auctions/$auctionId': {
+      id: '/auctions/$auctionId'
+      path: '/auctions/$auctionId'
+      fullPath: '/auctions/$auctionId'
+      preLoaderRoute: typeof AuctionsAuctionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/business/select': {
       id: '/business/select'
       path: '/business/select'
@@ -276,12 +453,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CarsCarIdRouteImport
       parentRoute: typeof CarsRouteRoute
     }
+    '/dealers/': {
+      id: '/dealers/'
+      path: '/dealers'
+      fullPath: '/dealers/'
+      preLoaderRoute: typeof DealersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dealers/$dealerId': {
+      id: '/dealers/$dealerId'
+      path: '/dealers/$dealerId'
+      fullPath: '/dealers/$dealerId'
+      preLoaderRoute: typeof DealersDealerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance/': {
+      id: '/finance/'
+      path: '/finance'
+      fullPath: '/finance/'
+      preLoaderRoute: typeof FinanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inspections/': {
+      id: '/inspections/'
+      path: '/inspections'
+      fullPath: '/inspections/'
+      preLoaderRoute: typeof InspectionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inspections/$inspectionId': {
+      id: '/inspections/$inspectionId'
+      path: '/inspections/$inspectionId'
+      fullPath: '/inspections/$inspectionId'
+      preLoaderRoute: typeof InspectionsInspectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/ads/': {
+      id: '/admin/ads/'
+      path: '/ads'
+      fullPath: '/admin/ads/'
+      preLoaderRoute: typeof AdminAdsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/auctions/': {
+      id: '/admin/auctions/'
+      path: '/auctions'
+      fullPath: '/admin/auctions/'
+      preLoaderRoute: typeof AdminAuctionsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/cars/new': {
       id: '/admin/cars/new'
       path: '/new'
       fullPath: '/admin/cars/new'
       preLoaderRoute: typeof AdminCarsNewRouteImport
       parentRoute: typeof AdminCarsRouteRoute
+    }
+    '/admin/dealers/': {
+      id: '/admin/dealers/'
+      path: '/dealers'
+      fullPath: '/admin/dealers/'
+      preLoaderRoute: typeof AdminDealersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/finance/': {
+      id: '/admin/finance/'
+      path: '/finance'
+      fullPath: '/admin/finance/'
+      preLoaderRoute: typeof AdminFinanceIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/inspections/': {
+      id: '/admin/inspections/'
+      path: '/inspections'
+      fullPath: '/admin/inspections/'
+      preLoaderRoute: typeof AdminInspectionsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
   }
 }
@@ -301,11 +555,23 @@ const AdminCarsRouteRouteWithChildren = AdminCarsRouteRoute._addFileChildren(
 interface AdminRouteRouteChildren {
   AdminCarsRouteRoute: typeof AdminCarsRouteRouteWithChildren
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminAdsIndexRoute: typeof AdminAdsIndexRoute
+  AdminAuctionsIndexRoute: typeof AdminAuctionsIndexRoute
+  AdminDealersIndexRoute: typeof AdminDealersIndexRoute
+  AdminFinanceIndexRoute: typeof AdminFinanceIndexRoute
+  AdminInspectionsIndexRoute: typeof AdminInspectionsIndexRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminCarsRouteRoute: AdminCarsRouteRouteWithChildren,
   AdminIndexRoute: AdminIndexRoute,
+  AdminAdsIndexRoute: AdminAdsIndexRoute,
+  AdminAuctionsIndexRoute: AdminAuctionsIndexRoute,
+  AdminDealersIndexRoute: AdminDealersIndexRoute,
+  AdminFinanceIndexRoute: AdminFinanceIndexRoute,
+  AdminInspectionsIndexRoute: AdminInspectionsIndexRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
@@ -334,7 +600,14 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   VerifyRoute: VerifyRoute,
+  AuctionsAuctionIdRoute: AuctionsAuctionIdRoute,
   BusinessSelectRoute: BusinessSelectRoute,
+  DealersDealerIdRoute: DealersDealerIdRoute,
+  InspectionsInspectionIdRoute: InspectionsInspectionIdRoute,
+  AuctionsIndexRoute: AuctionsIndexRoute,
+  DealersIndexRoute: DealersIndexRoute,
+  FinanceIndexRoute: FinanceIndexRoute,
+  InspectionsIndexRoute: InspectionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
