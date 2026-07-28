@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
-import { Car, Store, Gavel, ClipboardCheck, Wallet, Shield, LogIn, UserPlus, LayoutDashboard, LogOut, X } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Car, Store, Gavel, ClipboardCheck, Wallet, Shield, X } from "lucide-react";
 import type { Profile } from "../../lib/types";
 
 interface MenuItem {
@@ -39,6 +39,7 @@ function MenuList({ items, onClose }: { items: MenuItem[]; onClose: () => void }
 }
 
 export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: Props) {
+  const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const prevOpen = useRef(false);
@@ -93,13 +94,13 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
             {authChecked && profile ? (
               <div className="flex items-center gap-2">
                 {profile.role === "admin" && (
-                  <Link
-                    to="/admin"
-                    onClick={onClose}
+                  <button
+                    type="button"
+                    onClick={() => { navigate({ to: "/admin" }); onClose(); }}
                     className="flex h-[33px] items-center rounded-[4px] border border-syarah-blue px-3 text-[10px] font-bold text-syarah-blue transition-colors hover:bg-syarah-blue/5"
                   >
                     لوحة التحكم
-                  </Link>
+                  </button>
                 )}
                 <button
                   onClick={() => { onLogout(); onClose(); }}
@@ -110,20 +111,20 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
               </div>
             ) : authChecked ? (
               <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  onClick={onClose}
+                <button
+                  type="button"
+                  onClick={() => { navigate({ to: "/login" }); onClose(); }}
                   className="flex h-[33px] items-center rounded-[4px] border border-syarah-blue px-3 text-[10px] font-bold text-syarah-blue transition-colors hover:bg-syarah-blue/5"
                 >
                   دخول
-                </Link>
-                <Link
-                  to="/register"
-                  onClick={onClose}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { navigate({ to: "/register" }); onClose(); }}
                   className="flex h-[33px] items-center rounded-[4px] bg-syarah-blue px-3 text-[10px] font-bold text-white transition-colors hover:bg-syarah-blue/90"
                 >
                   حساب جديد
-                </Link>
+                </button>
               </div>
             ) : null}
           </section>
