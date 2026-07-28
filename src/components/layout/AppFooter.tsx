@@ -8,7 +8,7 @@ const NAV_LINKS_1 = [
 ];
 
 const NAV_LINKS_2 = [
-  { to: "/inspect" as const, label: "الفحص الفني" },
+  { to: "/inspections" as const, label: "الفحص الفني" },
   { to: "/finance" as const, label: "التمويل" },
   { to: "/insurance" as const, label: "التأمين" },
   { to: "/about" as const, label: "من نحن" },
