@@ -1,14 +1,5 @@
+import { verifyOtpServerFn } from "./auth-server";
 import { createClient } from "./supabase";
-
-const DEV_OTP = "1234";
-const OTP_LENGTH = 4;
-
-function getAuthCredentials(phone: string) {
-  return {
-    email: `${phone}@kamcar.com`,
-    password: `kamcar-${phone}`,
-  };
-}
 
 export async function sendOtp(
   phone: string,
@@ -25,37 +16,25 @@ export async function verifyOtp(
   error?: string;
   data?: { user: { id: string; phone?: string } | null };
 }> {
-  if (code.length !== OTP_LENGTH) {
+  if (code.length !== 4) {
     return { success: false, error: "رمز التحقق يجب أن يكون 4 أرقام" };
   }
 
-  if (code !== DEV_OTP) {
-    return { success: false, error: "رمز التحقق غير صحيح" };
-  }
+  try {
+    const result = await verifyOtpServerFn({ data: { phone, code } });
 
-  const supabase = createClient();
-  const { email, password } = getAuthCredentials(phone);
-
-  const { data, error: signInError } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (signInError) {
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { phone } },
+    const supabase = createClient();
+    await supabase.auth.setSession({
+      access_token: result.access_token,
+      refresh_token: result.refresh_token,
     });
 
-    if (signUpError) {
-      return { success: false, error: signUpError.message };
-    }
-
-    return { success: true, data: { user: signUpData.user } };
+    return { success: true, data: { user: result.user } };
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "رمز التحقق غير صحيح";
+    return { success: false, error: message };
   }
-
-  return { success: true, data: { user: data.user } };
 }
 
 export async function resendOtp(
