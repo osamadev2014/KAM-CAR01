@@ -5,7 +5,7 @@ import { verifyOtp, resendOtp } from "../lib/otp-service";
 
 export const Route = createFileRoute("/verify")({
   validateSearch: (search: Record<string, unknown>): { phone: string } => ({
-    phone: (search.phone as string) || "",
+    phone: ((search.phone as string) || "").replace(/^"|"$/g, ""),
   }),
   beforeLoad: async ({ search }) => {
     if (!search.phone) {

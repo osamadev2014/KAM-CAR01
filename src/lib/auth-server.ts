@@ -20,9 +20,9 @@ export const verifyOtpServerFn = createServerFn({ method: "POST" })
       throw new Error("Invalid OTP code");
     }
 
-    const supabaseUrl = process.env.VITE_SUPABASE_URL!;
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-    const anonKey = process.env.VITE_SUPABASE_ANON_KEY!;
+    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY!;
 
     const admin = createClient(supabaseUrl, serviceRoleKey);
     const { email, password } = deriveCredentials(data.phone);
