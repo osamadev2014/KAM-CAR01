@@ -59,7 +59,7 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
         onClick={onClose}
         aria-hidden="true"
       />
-      <aside className="fixed inset-y-0 right-0 z-[61] w-[300px] overflow-y-auto bg-white">
+      <aside className="fixed inset-y-0 left-0 z-[61] w-[300px] overflow-y-auto bg-white">
         <header className="flex h-[61px] items-center justify-between px-[15px]">
           <Link to="/" className="flex items-center shrink-0" onClick={onClose}>
             <span className="text-[20px] font-extrabold text-syarah-blue tracking-tight">
