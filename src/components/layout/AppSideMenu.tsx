@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Car, Store, Gavel, ClipboardCheck, Wallet, Shield, X } from "lucide-react";
 import type { Profile } from "../../lib/types";
 
@@ -39,7 +39,6 @@ function MenuList({ items, onClose }: { items: MenuItem[]; onClose: () => void }
 }
 
 export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: Props) {
-  const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const prevOpen = useRef(false);
@@ -96,7 +95,7 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
                 {profile.role === "admin" && (
                   <button
                     type="button"
-                    onClick={() => { navigate({ to: "/admin" }); onClose(); }}
+                    onClick={() => { onClose(); window.location.href = "/admin"; }}
                     className="flex h-[33px] items-center rounded-[4px] border border-syarah-blue px-3 text-[10px] font-bold text-syarah-blue transition-colors hover:bg-syarah-blue/5"
                   >
                     لوحة التحكم
@@ -113,14 +112,14 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => { navigate({ to: "/login" }); onClose(); }}
+                  onClick={() => { onClose(); window.location.href = "/login"; }}
                   className="flex h-[33px] items-center rounded-[4px] border border-syarah-blue px-3 text-[10px] font-bold text-syarah-blue transition-colors hover:bg-syarah-blue/5"
                 >
                   دخول
                 </button>
                 <button
                   type="button"
-                  onClick={() => { navigate({ to: "/register" }); onClose(); }}
+                  onClick={() => { onClose(); window.location.href = "/register"; }}
                   className="flex h-[33px] items-center rounded-[4px] bg-syarah-blue px-3 text-[10px] font-bold text-white transition-colors hover:bg-syarah-blue/90"
                 >
                   حساب جديد
