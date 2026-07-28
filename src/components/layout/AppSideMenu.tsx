@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Car, Store, Gavel, ClipboardCheck, Wallet, Shield, LogIn, UserPlus, LayoutDashboard, LogOut, X } from "lucide-react";
 import type { Profile } from "../../lib/types";
@@ -38,7 +39,23 @@ function MenuList({ items, onClose }: { items: MenuItem[]; onClose: () => void }
 }
 
 export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: Props) {
-  if (!open) return null;
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const prevOpen = useRef(false);
+
+  useEffect(() => {
+    if (open && !prevOpen.current) {
+      setMounted(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+    } else if (!open && prevOpen.current) {
+      setVisible(false);
+      const timer = setTimeout(() => setMounted(false), 300);
+      return () => { clearTimeout(timer); }
+    }
+    prevOpen.current = open;
+  }, [open]);
+
+  if (!mounted) return null;
 
   const BROWSE: MenuItem[] = [
     { label: "السيارات", to: "/cars", icon: <Car size={22} /> },
@@ -55,11 +72,11 @@ export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: P
   return (
     <>
       <div
-        className="fixed inset-0 z-[60] bg-black/90"
+        className={`fixed inset-0 z-[60] bg-black/90 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
         aria-hidden="true"
       />
-      <aside className="fixed inset-y-0 left-0 z-[61] w-[300px] overflow-y-auto bg-white">
+      <aside className={`fixed inset-y-0 left-0 z-[61] w-[300px] overflow-y-auto bg-white transition-transform duration-300 ${visible ? 'translate-x-0' : '-translate-x-full'}`}>
         <header className="flex h-[61px] items-center justify-between px-[15px]">
           <Link to="/" className="flex items-center shrink-0" onClick={onClose}>
             <span className="text-[20px] font-extrabold text-syarah-blue tracking-tight">
