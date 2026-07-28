@@ -27,11 +27,11 @@ export const verifyOtpServerFn = createServerFn({ method: "POST" })
     const admin = createClient(supabaseUrl, serviceRoleKey);
     const { email, password } = deriveCredentials(data.phone);
 
-    const { data: users } = await admin.auth.admin.listUsers({
-      filter: `email eq "${email}"`,
-    });
+    const { data: users, error: listError } = await admin.auth.admin.listUsers();
+    if (listError) throw new Error(listError.message);
 
-    if (users.users.length === 0) {
+    const existingUser = users?.users?.find((u) => u.email === email);
+    if (!existingUser) {
       const { error: createError } = await admin.auth.admin.createUser({
         email,
         password,
