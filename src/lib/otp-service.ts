@@ -5,7 +5,7 @@ const OTP_LENGTH = 4;
 
 function getAuthCredentials(phone: string) {
   return {
-    email: `${phone}@kamcar.auth`,
+    email: `${phone}@kamcar.com`,
     password: `kamcar-${phone}`,
   };
 }
