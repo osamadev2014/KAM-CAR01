@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
+import { createClient } from "../../lib/supabase";
+import type { Profile } from "../../lib/types";
 
 const NAV_LINKS = [
   { to: "/cars" as const, label: "السيارات" },
@@ -11,6 +13,47 @@ const NAV_LINKS = [
 
 export function AppHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", session.user.id)
+          .maybeSingle();
+        setProfile(data as Profile | null);
+      }
+      setAuthChecked(true);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", session.user.id)
+          .maybeSingle();
+        setProfile(data as Profile | null);
+      } else {
+        setProfile(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setProfile(null);
+    setMobileOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-syarah-border/60 bg-white/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/70">
@@ -36,19 +79,48 @@ export function AppHeader() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/admin/cars/new"
-            className="hidden sm:inline-flex items-center justify-center rounded-xl bg-syarah-green px-4 py-2 text-[13px] font-bold text-white transition-colors hover:bg-[#009345]"
-          >
-            بيع سيارتك
-          </Link>
+          {authChecked && profile && (
+            <Link
+              to="/admin/cars/new"
+              className="hidden sm:inline-flex items-center justify-center rounded-xl bg-syarah-green px-4 py-2 text-[13px] font-bold text-white transition-colors hover:bg-[#009345]"
+            >
+              بيع سيارتك
+            </Link>
+          )}
 
-          <Link
-            to="/login"
-            className="hidden sm:inline-flex items-center justify-center rounded-xl border border-syarah-border bg-white px-4 py-2 text-[13px] font-semibold text-syarah-text transition-colors hover:border-syarah-blue hover:text-syarah-blue"
-          >
-            دخول / حسابي
-          </Link>
+          {authChecked && profile ? (
+            <div className="hidden sm:flex items-center gap-2">
+              {profile.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="inline-flex items-center justify-center rounded-xl border border-syarah-border bg-white px-4 py-2 text-[13px] font-semibold text-syarah-text transition-colors hover:border-syarah-blue hover:text-syarah-blue"
+                >
+                  لوحة التحكم
+                </Link>
+              )}
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center rounded-xl border border-syarah-border bg-white px-4 py-2 text-[13px] font-semibold text-syarah-muted transition-colors hover:border-red-300 hover:text-red-500"
+              >
+                خروج
+              </button>
+            </div>
+          ) : authChecked ? (
+            <div className="hidden sm:flex items-center gap-2">
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center rounded-xl border border-syarah-border bg-white px-4 py-2 text-[13px] font-semibold text-syarah-text transition-colors hover:border-syarah-blue hover:text-syarah-blue"
+              >
+                دخول
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center rounded-xl bg-syarah-blue px-4 py-2 text-[13px] font-bold text-white transition-colors hover:bg-syarah-blue/90"
+              >
+                حساب جديد
+              </Link>
+            </div>
+          ) : null}
 
           <button
             type="button"
@@ -88,20 +160,42 @@ export function AppHeader() {
               </li>
             ))}
             <li className="pt-3 flex flex-col gap-2">
-              <Link
-                to="/admin/cars/new"
-                onClick={() => setMobileOpen(false)}
-                className="block text-center rounded-xl bg-syarah-green px-4 py-3 text-[14px] font-bold text-white"
-              >
-                بيع سيارتك
-              </Link>
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="block text-center rounded-xl border border-syarah-border px-4 py-3 text-[14px] font-semibold text-syarah-text"
-              >
-                دخول / حسابي
-              </Link>
+              {authChecked && profile ? (
+                <>
+                  {profile.role === "admin" && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setMobileOpen(false)}
+                      className="block text-center rounded-xl border border-syarah-border px-4 py-3 text-[14px] font-semibold text-syarah-text"
+                    >
+                      لوحة التحكم
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    className="block text-center rounded-xl border border-red-200 px-4 py-3 text-[14px] font-semibold text-red-500"
+                  >
+                    خروج
+                  </button>
+                </>
+              ) : authChecked ? (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-center rounded-xl border border-syarah-border px-4 py-3 text-[14px] font-semibold text-syarah-text"
+                  >
+                    تسجيل الدخول
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-center rounded-xl bg-syarah-blue px-4 py-3 text-[14px] font-bold text-white"
+                  >
+                    حساب جديد
+                  </Link>
+                </>
+              ) : null}
             </li>
           </ul>
         </nav>
@@ -113,7 +207,7 @@ export function AppHeader() {
 const BOTTOM_NAV_ITEMS = [
   { to: "/" as const, label: "الرئيسية", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" },
   { to: "/cars" as const, label: "تصفح", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
-  { to: "/admin/cars/new" as const, label: "بيع", icon: "M12 4v16m8-8H4", premium: true },
+  { to: "/login" as const, label: "بيع", icon: "M12 4v16m8-8H4", premium: true },
   { to: "/favorites" as const, label: "المفضلة", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
   { to: "/login" as const, label: "حسابي", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
 ];
@@ -126,8 +220,8 @@ export function MobileBottomNav() {
           if (item.premium) {
             return (
               <Link
-                key={item.to}
-                to={item.to}
+                key={`${item.to}-sell`}
+                to="/login"
                 className="flex flex-col items-center justify-center gap-0.5"
               >
                 <div className="h-11 w-11 rounded-xl bg-syarah-blue flex items-center justify-center shadow-md">

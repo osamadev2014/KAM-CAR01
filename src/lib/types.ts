@@ -100,3 +100,14 @@ export interface CarImageInsert {
   url: string;
   sort_order: number;
 }
+
+export type UserRole = "customer" | "dealer" | "admin";
+
+export interface Profile {
+  id: string;
+  phone: string;
+  full_name: string | null;
+  role: UserRole;
+  created_at: string;
+  updated_at: string;
+}

@@ -13,8 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as CarsRouteRouteImport } from './routes/cars/route'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminCarsRouteRouteImport } from './routes/admin/cars/route'
+import { Route as BusinessSelectRouteImport } from './routes/business/select'
 import { Route as CarsIndexRouteImport } from './routes/cars/index'
 import { Route as CarsCarIdRouteImport } from './routes/cars/$carId'
 import { Route as AdminCarsNewRouteImport } from './routes/admin/cars/new'
@@ -39,6 +43,21 @@ const CarsRouteRoute = CarsRouteRouteImport.update({
   path: '/cars',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyRoute = VerifyRouteImport.update({
+  id: '/verify',
+  path: '/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -48,6 +67,11 @@ const AdminCarsRouteRoute = AdminCarsRouteRouteImport.update({
   id: '/cars',
   path: '/cars',
   getParentRoute: () => AdminRouteRoute,
+} as any)
+const BusinessSelectRoute = BusinessSelectRouteImport.update({
+  id: '/business/select',
+  path: '/business/select',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CarsIndexRoute = CarsIndexRouteImport.update({
   id: '/',
@@ -70,7 +94,11 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/cars': typeof CarsRouteRouteWithChildren
   '/admin-login': typeof AdminLoginRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
   '/admin/': typeof AdminIndexRoute
   '/cars/': typeof CarsIndexRoute
@@ -79,7 +107,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin-login': typeof AdminLoginRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
   '/admin': typeof AdminIndexRoute
   '/cars': typeof CarsIndexRoute
@@ -91,7 +123,11 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/cars': typeof CarsRouteRouteWithChildren
   '/admin-login': typeof AdminLoginRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/verify': typeof VerifyRoute
   '/admin/cars': typeof AdminCarsRouteRouteWithChildren
+  '/business/select': typeof BusinessSelectRoute
   '/cars/$carId': typeof CarsCarIdRoute
   '/admin/': typeof AdminIndexRoute
   '/cars/': typeof CarsIndexRoute
@@ -104,7 +140,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/cars'
     | '/admin-login'
+    | '/login'
+    | '/register'
+    | '/verify'
     | '/admin/cars'
+    | '/business/select'
     | '/cars/$carId'
     | '/admin/'
     | '/cars/'
@@ -113,7 +153,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin-login'
+    | '/login'
+    | '/register'
+    | '/verify'
     | '/admin/cars'
+    | '/business/select'
     | '/cars/$carId'
     | '/admin'
     | '/cars'
@@ -124,7 +168,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/cars'
     | '/admin-login'
+    | '/login'
+    | '/register'
+    | '/verify'
     | '/admin/cars'
+    | '/business/select'
     | '/cars/$carId'
     | '/admin/'
     | '/cars/'
@@ -136,6 +184,10 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   CarsRouteRoute: typeof CarsRouteRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  VerifyRoute: typeof VerifyRoute
+  BusinessSelectRoute: typeof BusinessSelectRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -168,6 +220,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CarsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify': {
+      id: '/verify'
+      path: '/verify'
+      fullPath: '/verify'
+      preLoaderRoute: typeof VerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -181,6 +254,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/cars'
       preLoaderRoute: typeof AdminCarsRouteRouteImport
       parentRoute: typeof AdminRouteRoute
+    }
+    '/business/select': {
+      id: '/business/select'
+      path: '/business/select'
+      fullPath: '/business/select'
+      preLoaderRoute: typeof BusinessSelectRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/cars/': {
       id: '/cars/'
@@ -251,6 +331,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   CarsRouteRoute: CarsRouteRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  VerifyRoute: VerifyRoute,
+  BusinessSelectRoute: BusinessSelectRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
