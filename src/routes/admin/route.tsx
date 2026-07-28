@@ -7,7 +7,7 @@ export const Route = createFileRoute("/admin")({
     const { data: { session } } = await supabase.auth.getSession();
 
     if (!session) {
-      throw redirect({ to: "/admin-login" });
+      throw redirect({ to: "/login" });
     }
 
     const { data: profile } = await supabase
