@@ -5,8 +5,8 @@ import { createClient } from "../../lib/supabase";
 import type { Car, CarImage, CarMake } from "../../lib/types";
 import { CarCard } from "../../components/listing/CarCard";
 import { CarCardSkeleton } from "../../components/listing/CarCardSkeleton";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 const PAGE_SIZE = 12;
 
@@ -110,7 +110,7 @@ function CarsListing() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-syarah-text antialiased" dir="rtl">
-      <SiteHeader />
+      <AppHeader />
       <main>
         <div className="mx-auto max-w-[1152px] px-4 py-6">
           <h1 className="mb-6 text-[22px] font-bold text-syarah-text">السيارات المتاحة</h1>
@@ -208,7 +208,7 @@ function CarsListing() {
           )}
         </div>
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

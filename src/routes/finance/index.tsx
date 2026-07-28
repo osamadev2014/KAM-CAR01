@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "../../lib/supabase";
 import type { FinancePartner } from "../../lib/types";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 export const Route = createFileRoute("/finance/")({
   component: FinancePage,
@@ -27,7 +27,7 @@ function FinancePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-syarah-bg">
-      <SiteHeader />
+      <AppHeader />
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-syarah-text">التمويل والتأمين</h1>
@@ -132,7 +132,7 @@ function FinancePage() {
           </div>
         )}
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

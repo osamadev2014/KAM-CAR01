@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 export const Route = createFileRoute("/business/select")({
   component: BusinessSelect,
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/business/select")({
 function BusinessSelect() {
   return (
     <div className="min-h-screen bg-white font-sans text-syarah-text antialiased" dir="rtl">
-      <SiteHeader />
+      <AppHeader />
       <main>
         <div className="mx-auto max-w-[800px] px-4 py-10">
           <h1 className="mb-2 text-[22px] font-bold text-syarah-text">اختر نوع حسابك</h1>
@@ -59,7 +59,7 @@ function BusinessSelect() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

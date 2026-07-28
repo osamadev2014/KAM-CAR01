@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { createClient } from "../../lib/supabase";
 import type { Auction, AuctionBid, Car, CarMake, CarModel } from "../../lib/types";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 export const Route = createFileRoute("/auctions/$auctionId")({
   component: AuctionDetailPage,
@@ -100,14 +100,14 @@ function AuctionDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col bg-syarah-bg">
-        <SiteHeader />
+        <AppHeader />
         <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
           <div className="animate-pulse space-y-4">
             <div className="h-64 bg-white rounded-2xl border border-syarah-border" />
             <div className="h-96 bg-white rounded-2xl border border-syarah-border" />
           </div>
         </main>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
@@ -115,7 +115,7 @@ function AuctionDetailPage() {
   if (!auction) {
     return (
       <div className="min-h-screen flex flex-col bg-syarah-bg">
-        <SiteHeader />
+        <AppHeader />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-syarah-text">المزاد غير موجود</h1>
@@ -124,7 +124,7 @@ function AuctionDetailPage() {
             </Link>
           </div>
         </main>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
@@ -136,7 +136,7 @@ function AuctionDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-syarah-bg">
-      <SiteHeader />
+      <AppHeader />
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
@@ -301,7 +301,7 @@ function AuctionDetailPage() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

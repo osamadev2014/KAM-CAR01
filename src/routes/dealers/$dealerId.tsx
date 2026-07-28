@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "../../lib/supabase";
 import type { Dealer, Car, CarMake, CarModel } from "../../lib/types";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 export const Route = createFileRoute("/dealers/$dealerId")({
   component: DealerDetailPage,
@@ -65,7 +65,7 @@ function DealerDetailPage() {
   if (dealerLoading) {
     return (
       <div className="min-h-screen flex flex-col bg-syarah-bg">
-        <SiteHeader />
+        <AppHeader />
         <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
           <div className="animate-pulse space-y-4">
             <div className="h-48 bg-white rounded-2xl border border-syarah-border" />
@@ -76,7 +76,7 @@ function DealerDetailPage() {
             </div>
           </div>
         </main>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
@@ -84,7 +84,7 @@ function DealerDetailPage() {
   if (!dealer) {
     return (
       <div className="min-h-screen flex flex-col bg-syarah-bg">
-        <SiteHeader />
+        <AppHeader />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-syarah-text">الوكيل غير موجود</h1>
@@ -93,14 +93,14 @@ function DealerDetailPage() {
             </Link>
           </div>
         </main>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-syarah-bg">
-      <SiteHeader />
+      <AppHeader />
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
         <div className="rounded-2xl border border-syarah-border bg-white overflow-hidden mb-8">
           <div className="h-48 bg-syarah-section relative">
@@ -200,7 +200,7 @@ function DealerDetailPage() {
           </div>
         )}
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { createClient } from "../../lib/supabase";
 import type { Car, CarImage, CarMake, CarModel } from "../../lib/types";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 import { Gallery } from "../../components/cardetail/Gallery";
 import { SpecCard } from "../../components/cardetail/SpecCard";
 import { SimilarCarCard } from "../../components/cardetail/SimilarCarCard";
@@ -108,11 +108,11 @@ function CarDetailPage() {
   if (carLoading) {
     return (
       <div className="min-h-screen bg-white" dir="rtl">
-        <SiteHeader />
+        <AppHeader />
         <div className="flex items-center justify-center py-32">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-syarah-border border-t-syarah-blue" />
         </div>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
@@ -120,7 +120,7 @@ function CarDetailPage() {
   if (!car) {
     return (
       <div className="min-h-screen bg-white" dir="rtl">
-        <SiteHeader />
+        <AppHeader />
         <div className="flex flex-col items-center justify-center py-32 text-center">
           <h1 className="text-[28px] font-bold text-syarah-text">السيارة غير موجودة</h1>
           <p className="mt-2 text-[14px] text-syarah-muted">
@@ -133,7 +133,7 @@ function CarDetailPage() {
             تصفح السيارات
           </Link>
         </div>
-        <SiteFooter />
+        <AppFooter />
       </div>
     );
   }
@@ -207,7 +207,7 @@ function CarDetailPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-syarah-text antialiased" dir="rtl">
-      <SiteHeader />
+      <AppHeader />
 
       <main>
         <div className="mx-auto max-w-[1152px] px-4">
@@ -394,7 +394,7 @@ function CarDetailPage() {
         <Faq />
       </main>
 
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }

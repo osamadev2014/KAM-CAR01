@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { createClient } from "../../lib/supabase";
 import type { Dealer } from "../../lib/types";
-import { SiteHeader } from "../../components/cardetail/SiteHeader";
-import { SiteFooter } from "../../components/cardetail/SiteFooter";
+import { AppHeader } from "../../components/layout/AppHeader";
+import { AppFooter } from "../../components/layout/AppFooter";
 
 export const Route = createFileRoute("/dealers/")({
   component: DealersPage,
@@ -42,7 +42,7 @@ function DealersPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-syarah-bg">
-      <SiteHeader />
+      <AppHeader />
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-syarah-text">الوكلاء المعتمدون</h1>
@@ -130,7 +130,7 @@ function DealersPage() {
           </div>
         )}
       </main>
-      <SiteFooter />
+      <AppFooter />
     </div>
   );
 }
