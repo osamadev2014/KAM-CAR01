@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Car, Store, Gavel, ClipboardCheck, Wallet, Shield, X } from "lucide-react";
 import type { Profile } from "../../lib/types";
@@ -41,18 +41,19 @@ function MenuList({ items, onClose }: { items: MenuItem[]; onClose: () => void }
 export function AppSideMenu({ open, onClose, profile, authChecked, onLogout }: Props) {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
-  const prevOpen = useRef(false);
 
   useEffect(() => {
-    if (open && !prevOpen.current) {
+    if (open) {
       setMounted(true);
-      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
-    } else if (!open && prevOpen.current) {
+      const raf = requestAnimationFrame(() => {
+        setVisible(true);
+      });
+      return () => cancelAnimationFrame(raf);
+    } else {
       setVisible(false);
       const timer = setTimeout(() => setMounted(false), 300);
-      return () => { clearTimeout(timer); }
+      return () => clearTimeout(timer);
     }
-    prevOpen.current = open;
   }, [open]);
 
   if (!mounted) return null;
